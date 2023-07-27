@@ -1,0 +1,147 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Subsidies Spain index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'subsidy/css/styles.css'%}">
+
+</head>
+<body>
+  <div class="container-principal">
+    <div class="title-container">
+
+        <h1 class="titulo">Subsidies  {{ location_name }} </h1>
+        <a href="/subsidy/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 20v-5h4v5h5v-7h3L12 3 2 13h3v7h5zm-2-5V7.83l5 5V10h2v7h-2v-4.17l-5-5z"/>
+        </svg>
+    </a>
+    <h3> {{ hoy }}</h3>
+    <h3>Total Records {{ total }}</h3>
+    <h3>New Records Today: {{ new_records }}</h3>
+    <h3>New Records Yesterday: {{ new_records_yesterday }}</h3>
+
+</div>
+<div class="search_by">
+    <form id="searchForm" method="GET" action="/subsidy/bdns/">
+       <input id="searchInput" type="text" name="bdns__like" placeholder=" Search by BDNS">
+       <button type="submit" class="botton-search">Search</button>
+   </form>
+   <form id="title_search" method="GET" action="">
+    <input type="text" id="searchTitle" placeholder="Search by Title like">
+    <button type="submit" id="bytitle" class="botton-search">Search</button>
+</form>
+<form id="searchFormulario" method="GET" action="">
+ <input id="searching" type="text" name="bdns__like" placeholder=" Search by BDNS Like">
+
+ <select id="locationSelect" class="form-select" name="location">  </select>
+ <button id="submitButtoncito" class="botton-search">Search</button>
+</form>
+
+
+</div>
+<!-- Contenido de la tabla de subsidios -->
+<div class="scrollable-table scroll">
+    <table class="table table-striped item">
+       <thead>
+           <tr>
+            <th>Bdns</th>           
+            <th>Title</th>
+            <th>Convening Authority</th>
+            <th>Registration Date</th>    
+            <th>Beneficiary Type</th>
+            <th>Location</th>            
+            <th>Purpose</th>
+            <th>Budget</th>
+            <th>Start Date</th>              
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+       {% for item in data %}
+       <tr class="row-detail" data-bdns="{{ item.bdns }}">
+        <td>{{ item.bdns }}</td>
+        <td>{{ item.title }}</td>           
+        <td>{{ item.convening_authority.name }}</td>
+        <td>{{ item.registration_date }}</td>
+        <td>{{ item.beneficiary_type.0.name }}</td>
+        <td>{{ item.location.name }}</td>
+        <td>{{ item.purpose.name }}</td>             
+        <td>{{ item.budget }} &euro;</td>
+        <td>{{ item.start_date }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>  
+</div>
+
+
+<!--Contenedor de paginación-->
+<div class="container-pages">
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <!-- Anterior -->
+            {% if current_page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ current_page|add:'-1' }}">Anterior</a>
+            </li>
+            {% endif %}
+
+            <!-- Páginas -->
+            {% for i in page_range %}
+            {% if i == current_page %}
+            <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            <!-- Siguiente -->
+            {% if current_page < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ current_page|add:'1' }}">Siguiente</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="subsidyModal" tabindex="-1" role="dialog" aria-labelledby="subsidyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title center-text" id="subsidyModalLabel">Details Subsidies</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<script type="text/javascript" src="{% static 'subsidy/js/main.js'%}"></script>
+<script type="text/javascript" src="{% static 'subsidy/js/subsidies_locations.js'%}"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+

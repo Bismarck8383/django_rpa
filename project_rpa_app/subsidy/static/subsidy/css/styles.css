@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.scroll {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 40px); /* Resta la altura del título */
+}
+
+
+.container-principal {
+  overflow: auto;
+}
+/*title styles*/
+.title-container{
+	position: relative;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.85);
+	margin-bottom: 0px;
+	padding: 2px 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+
+}
+.title-container h1{
+	color: white;
+	font-size: 30pt;
+	letter-spacing: 3px;
+	text-align: center;
+	width: 100%;
+}
+h3{
+	margin-left: 20px;
+	color: white;
+	padding: 2px 10px;
+}
+td{
+	font-size: 10pt;
+}
+
+.scroll table thead {
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  z-index: 1;
+}
+
+/*styles paginación*/
+.container-pages{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	padding: 5px;
+}
+tbody tr { 
+	transition: 0.5s;	
+	
+}
+
+tbody tr:hover { 
+	cursor: pointer;
+	outline: 1px solid green;
+}
+ .modal-title{
+ 	font-weight: 700;
+ 	text-align: center;
+ }
+
+ .search_by{
+ 	padding: 10px 15px;
+ 	width: 100%;
+ 	display: flex;
+ 	flex-wrap: wrap;
+ 	justify-content: space-around;
+ }
+
+.botton-search{
+	
+	font-size: 13pt;
+	transition: 0.5s;
+	letter-spacing: 2px;
+}
+.botton-search:hover{
+	background: rgba(0, 0, 0, 0.88);
+	color: white;
+	border-radius: 20%;
+}
+#locationSelect, #searchTitle{
+	padding: 2.5px;
+}
